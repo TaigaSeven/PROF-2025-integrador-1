@@ -21,4 +21,41 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <build> 
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.13</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <rule>
+                                    <element>BUNDLE</element>
+                                </rule>
+                                <rule>
+                                    <limit>
+                                        <counter>METHOD</counter>
+                                        <value>COVEDEDRATIO</value>
+                                        <minimum>0.60</minimum>
+                                    </limit>
+                                </rule>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+   
 </project>
