@@ -45,20 +45,22 @@ public class CuentaBancariaTest {
     }
 
     @Test
-    public void operacionNegativaNoAdmiteTest(){
+    public void operacionNegativaNoAdmiteTest()throws OperationNulaException,OperationDuplicadaException{
         Operacion op = Mockito.mock(Operacion.class);
         Mockito.when(op.getId()).thenReturn(10L);
         Mockito.when(op.getImporte()).thenReturn(-20.0);
         cuenta.admiteDescubierto = false;
+        cuenta.addOperacion(op);
         assertThrows(SaldoNegativoException.class, ()->{cuenta.getSaldoActual();});
     }
 
     @Test
-    public void OperacionNegativaAdmiteTest()throws SaldoNegativoException{
+    public void OperacionNegativaAdmiteTest()throws SaldoNegativoException, OperationDuplicadaException,OperationNulaException{
         Operacion op = Mockito.mock(Operacion.class);
         Mockito.when(op.getId()).thenReturn(10L);
         Mockito.when(op.getImporte()).thenReturn(-20.0);
         cuenta.admiteDescubierto = true;
+        cuenta.addOperacion(op);
         assertEquals(-15.0, cuenta.getSaldoActual());
     }
 }
